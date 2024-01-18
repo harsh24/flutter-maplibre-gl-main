@@ -1,11 +1,11 @@
 name: maplibre_gl_example
 description: Demonstrates how to use the maplibre_gl plugin.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.10.0'
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
@@ -17,13 +17,13 @@ dependencies:
 
   maplibre_gl_platform_interface:
     git:
-      url: https://github.com/maplibre/flutter-maplibre-gl.git
+      url: https://github.com/harsh24/flutter-maplibre-gl-main.git
       path: maplibre_gl_platform_interface
       ref: git-release-0.17.0
 
   maplibre_gl:
     git:
-      url: https://github.com/maplibre/flutter-maplibre-gl.git
+      url: https://github.com/harsh24/flutter-maplibre-gl-main.git
       ref: git-release-0.17.0
 
   location: ^5.0.3
@@ -34,7 +34,7 @@ dependencies:
   platform: ^3.1.0
   device_info_plus: ^9.0.2
 
-# The following lines can be useful if you make changes to this plugin (specifically to the two sub-plugins), 
+# The following lines can be useful if you make changes to this plugin (specifically to the two sub-plugins),
 # e.g. because you contribute to the project.
 # If the following lines are not commented out, your local versions of the sub-plugins will be used,
 #  instead of the hosted ones.
@@ -56,7 +56,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
