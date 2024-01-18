@@ -1083,6 +1083,12 @@ class MaplibreMapController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Get Cluster Zoom Level
+  Future<dynamic> getClusterZoomLevel(
+      String sourceName, Map<String, dynamic> featureJson) async {
+    return _maplibreGlPlatform.getClusterZoomLevel(sourceName, featureJson);
+  }
+
   /// Removes the specified [fills] from the map. The fills must be current
   /// members of the [fills] set.
   ///

@@ -14,6 +14,7 @@ import com.mapbox.mapboxsdk.style.sources.RasterSource;
 import com.mapbox.mapboxsdk.style.sources.Source;
 import com.mapbox.mapboxsdk.style.sources.TileSet;
 import com.mapbox.mapboxsdk.style.sources.VectorSource;
+import com.mapbox.mapboxsdk.style.expressions.Expression;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -106,6 +107,25 @@ class SourcePropertyConverter {
     final Object tolerance = data.get("tolerance");
     if (tolerance != null) {
       options = options.withTolerance(Convert.toFloat(tolerance));
+    }
+
+    final Object clusterProperties = data.get("clusterProperties");
+    if (clusterProperties != null) {
+      final Map<String, List<String>> properties = (Map<String, List<String>>) Convert
+          .toMap(clusterProperties);
+
+      for (Map.Entry<String, List<String>> entry : properties.entrySet()) {
+        final List<String> list = entry.getValue();
+
+        Expression firstExpression = LayerPropertyConverter
+            .interpretClusterPropertyExpression(list.get(0));
+
+        Expression secondExpression = LayerPropertyConverter
+            .interpretClusterPropertyExpression(list.get(1));
+
+        options = options.withClusterProperty(entry.getKey(), firstExpression,
+            secondExpression);
+      }
     }
     return options;
   }

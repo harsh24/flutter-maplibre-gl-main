@@ -935,6 +935,19 @@ final class MapboxMapController
               });
           break;
         }
+      case "map#getClusterZoomLevel":{
+          String sourceName = call.argument("sourceName");
+          String featureJson = call.argument("featureJson");
+  
+          GeoJsonSource geoJsonSource = style.getSourceAs(sourceName);
+          Feature feature = Feature.fromJson(featureJson);
+          
+          final int x = geoJsonSource.getClusterExpansionZoom(feature);
+  
+          result.success(x);
+  
+          break;
+        }  
       case "source#addGeoJson":
         {
           final String sourceId = call.argument("sourceId");
@@ -1752,14 +1765,15 @@ final class MapboxMapController
     if (mapView == null) {
       return;
     }
-    mapViewContainer.removeView(mapView);
-    mapView.onStop();
-    mapView.onDestroy();
 
     if (locationComponent != null) {
       locationComponent.setLocationComponentEnabled(false);
     }
     stopListeningForLocationUpdates();
+
+    mapViewContainer.removeView(mapView);
+    mapView.onStop();
+    mapView.onDestroy();
 
     mapView = null;
   }

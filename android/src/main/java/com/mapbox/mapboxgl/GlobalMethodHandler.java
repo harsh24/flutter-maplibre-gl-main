@@ -131,6 +131,10 @@ class GlobalMethodHandler implements MethodChannel.MethodCallHandler {
         OfflineManagerUtils.deleteRegion(
             result, context, methodCall.<Number>argument("id").longValue());
         break;
+      case "clearAmbientCache":
+        OfflineManagerUtils.clearAmbientCache(
+            result, context);
+        break;
       default:
         result.notImplemented();
         break;

@@ -68,6 +68,9 @@ abstract class MapLibreGlPlatform {
   Future<void> setMapLanguage(String language);
   Future<void> setTelemetryEnabled(bool enabled);
 
+  Future<dynamic> getClusterZoomLevel(
+      String sourceName, Map<String, dynamic> featureJson);
+
   Future<bool> getTelemetryEnabled();
   Future<List> queryRenderedFeatures(
       Point<double> point, List<String> layerIds, List<Object>? filter);

@@ -150,3 +150,13 @@ Future<OfflineRegion> downloadOfflineRegion(
 
   return OfflineRegion.fromMap(json.decode(result));
 }
+
+@override
+Future clearAmbientCache() async {
+  try {
+    await _globalChannel.invokeMethod('clearAmbientCache');
+    return null;
+  } on PlatformException catch (e) {
+    return new Future.error(e);
+  }
+}

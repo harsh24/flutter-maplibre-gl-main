@@ -270,6 +270,20 @@ abstract class OfflineManagerUtils {
             });
   }
 
+  static void clearAmbientCache(MethodChannel.Result result, Context context) {
+    OfflineManager.Companion.getInstance(context).clearAmbientCache(new OfflineManager.FileSourceCallback() {
+      @Override
+      public void onSuccess() {
+        result.success(null);
+      }
+
+      @Override
+      public void onError(String error) {
+        result.error("clearAmbientCacheError", error, null);
+      }
+    });
+  }
+
   private static double calculateDownloadingProgress(
       long requiredResourceCount, long completedResourceCount) {
     return requiredResourceCount > 0

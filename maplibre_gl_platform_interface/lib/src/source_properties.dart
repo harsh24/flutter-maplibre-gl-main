@@ -480,7 +480,8 @@ class GeojsonSourceProperties implements SourceProperties {
   /// ["get", "sum"]], ["get", "scalerank"]]}`
   ///
   /// Type: *
-  final Object? clusterProperties;
+  final Map<String, List<dynamic>>? clusterProperties;
+
 
   /// Whether to calculate line distance metrics. This is required for line
   /// layers that specify `line-gradient` values.
@@ -528,7 +529,7 @@ class GeojsonSourceProperties implements SourceProperties {
     bool? cluster,
     double? clusterRadius,
     double? clusterMaxZoom,
-    Object? clusterProperties,
+    Map<String, List<dynamic>>? clusterProperties,
     bool? lineMetrics,
     bool? generateId,
     String? promoteId,
@@ -567,7 +568,10 @@ class GeojsonSourceProperties implements SourceProperties {
     addIfPresent('cluster', cluster);
     addIfPresent('clusterRadius', clusterRadius);
     addIfPresent('clusterMaxZoom', clusterMaxZoom);
-    addIfPresent('clusterProperties', clusterProperties);
+    addIfPresent(
+        'clusterProperties',
+        clusterProperties?.map((key, value) => MapEntry<String, List<dynamic>>(
+            key, value.map((e) => jsonEncode(e)).toList())));
     addIfPresent('lineMetrics', lineMetrics);
     addIfPresent('generateId', generateId);
     addIfPresent('promoteId', promoteId);

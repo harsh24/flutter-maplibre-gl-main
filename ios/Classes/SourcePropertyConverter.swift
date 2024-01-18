@@ -98,9 +98,26 @@ class SourcePropertyConverter {
         if let clusterMaxZoom = properties["clusterMaxZoom"] as? Double {
             options[.maximumZoomLevelForClustering] = clusterMaxZoom
         }
+        if let clusterProperties = properties["clusterProperties"] as? [String:[String]] {
+    
+            var clusterPropertiesDictionary:[String:[NSExpression?]] = [:]
 
-        // TODO: clusterProperties not implemneted for IOS
+            for (propertyName, propertyValue) in clusterProperties {
+                let firstExpression = LayerPropertyConverter.interpretExpression(
+                    propertyName: propertyName,
+                    expression: propertyValue[0]
+                )
 
+                let secondExpression = LayerPropertyConverter.interpretExpression(
+                    propertyName: propertyName,
+                    expression: propertyValue[1]
+                )
+
+            clusterPropertiesDictionary[propertyName] = [firstExpression,secondExpression]
+            }
+            
+            options[.clusterProperties] = clusterPropertiesDictionary;
+        }
         if let lineMetrics = properties["lineMetrics"] as? Bool {
             options[.lineDistanceMetrics] = lineMetrics
         }

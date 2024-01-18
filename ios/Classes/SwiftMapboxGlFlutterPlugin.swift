@@ -109,6 +109,15 @@ public class SwiftMapboxGlFlutterPlugin: NSObject, FlutterPlugin {
                     return
                 }
                 OfflineManagerUtils.deleteRegion(result: result, id: id)
+            case "clearAmbientCache":
+                MGLOfflineStorage.shared.clearAmbientCache {
+                    error in
+                    if let error = error {
+                        result(error)
+                    } else {
+                        result(nil)
+                    }
+                }    
             default:
                 result(FlutterMethodNotImplemented)
             }

@@ -316,6 +316,19 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             reply["latitude"] = coordinates.latitude as NSObject
             reply["longitude"] = coordinates.longitude as NSObject
             result(reply)
+        case "map#getClusterZoomLevel":
+            guard let arguments = methodCall.arguments as? [String: Any] else { return }
+            guard let sourceName = arguments["sourceName"] as? String else { return }
+            guard let featureJson = arguments["featureJson"] as? String else { return }
+
+            if let geoJsonSource = mapView.style?.source(withIdentifier: sourceName) as? MGLShapeSource {
+            guard let shape = try? MGLShape(data: featureJson.data(using: .utf8)!, encoding: String.Encoding.utf8.rawValue) else { return }
+            guard let pointFeature = shape as? MGLPointFeatureCluster else { return }
+
+            let zoomLevel = geoJsonSource.zoomLevel(forExpanding: pointFeature)
+
+            result(zoomLevel)              
+            }
         case "camera#move":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let cameraUpdate = arguments["cameraUpdate"] as? [Any] else { return }
